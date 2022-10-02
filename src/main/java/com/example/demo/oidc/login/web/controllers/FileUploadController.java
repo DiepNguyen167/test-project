@@ -26,7 +26,7 @@ public class FileUploadController {
         this.storageService = storageService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value ="/uploadForm")
+    @RequestMapping(method = RequestMethod.GET, value ="/")
     public String listUploadedFiles() throws IOException {
         return "uploadForm.html";
     }
