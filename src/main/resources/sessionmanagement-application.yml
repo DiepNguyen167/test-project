@@ -1,0 +1,11 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            client-id: 742675739576-k7lnt3mpdo7fk2h6cjlbib17jaui3s87.apps.googleusercontent.com
+            client-secret: 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
+        provider:
+          okta:
+            issuer-uri: https://dev-123.okta.com
