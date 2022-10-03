@@ -13,18 +13,21 @@
             </table>
         </form>
 
+        <div>
+            <h3>All files after upload:</h3>
+            <ul>
+                <li th:each="file : ${files}">
+                    <a th:href="${file}" th:text="${file}" />
+                </li>
+            </ul>
+        </div>
+
         <form action="/logout" method="GET">
             <input type="submit" value="Logout" />
         </form>
     </div>
 
-    <div>
-        <ul>
-            <li th:each="file : ${files}">
-                <a th:href="${file}" th:text="${file}" />
-            </li>
-        </ul>
-    </div>
+
 
 
 

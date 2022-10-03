@@ -4,7 +4,9 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -31,12 +33,7 @@ public class OAuth2LoginSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
                 .oauth2Login(oauthLogin -> oauthLogin.userInfoEndpoint().oidcUserService(googleUserService)).oauth2Login()
-                .defaultSuccessUrl("/upload", true)
-                //.permitAll()
-                .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").permitAll()
-                .deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true) ;;
+                .defaultSuccessUrl("/upload", true).permitAll();
+
     }
 }
