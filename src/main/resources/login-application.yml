@@ -6,3 +6,9 @@ spring:
           google:
             client-id: 742675739576-k7lnt3mpdo7fk2h6cjlbib17jaui3s87.apps.googleusercontent.com
             client-secret: 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
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8082/login/oauth2/code/google
+            token-uri: http://localhost:8082/oauth/token
+            authorization-uri: http://localhost:8082/oauth/authorize
+            user-info-uri: http://localhost:8082/user
+            user-name-attribute: name

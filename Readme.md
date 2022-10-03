@@ -29,8 +29,10 @@ Write a server with 2 features:
     - Write the image metadata (content type, size, etc) to a database of your
       choice, including all relevant HTTP information.
 
-## URL:
-Login with your Google account:
+## NOTE:
+Login with your Google account.
+
+Url:
 ```
 http://localhost:8082/login
 ```
@@ -39,4 +41,6 @@ Main class + Java 17:
 ```
 com.example.demo.oidc.login.SpringOidcLoginApplication
 ```
+
+Using your client-id and client-secret for login-application.yml
 

@@ -5,6 +5,7 @@ import com.example.demo.oidc.login.web.controllers.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,12 @@ public class FileUploadController {
         this.storageService = storageService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value ="/")
+//    @RequestMapping(method = RequestMethod.GET, value ="/")
+//    public String login() throws IOException {
+//        return "login.html";
+//    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/uploadForm")
     public String listUploadedFiles() throws IOException {
         return "uploadForm.html";
     }
@@ -36,17 +42,13 @@ public class FileUploadController {
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
         Resource file = storageService.loadAsResource(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/uploadForm")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
-
+    @RequestMapping(method = RequestMethod.POST, value = "/uploadForm", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+        redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
 
         return "redirect:/uploadForm";
     }

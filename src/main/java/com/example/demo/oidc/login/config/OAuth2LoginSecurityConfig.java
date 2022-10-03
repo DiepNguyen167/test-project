@@ -31,11 +31,11 @@ public class OAuth2LoginSecurityConfig extends WebSecurityConfigurerAdapter {// 
         OidcUserService googleUserService = new OidcUserService();
         googleUserService.setAccessibleScopes(googleScopes);
 
-        http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
+        http.cors().and().csrf().disable().authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
                 .oauth2Login(oauthLogin -> oauthLogin.userInfoEndpoint().oidcUserService(googleUserService)).logout(logout ->
                         logout
-                                .logoutSuccessHandler(oidcLogoutSuccessHandler()).logoutSuccessUrl("/login")
-                ).oauth2Login().defaultSuccessUrl("/", true).permitAll()
+                                .logoutSuccessHandler(oidcLogoutSuccessHandler()).logoutSuccessUrl("/login").permitAll()
+                ).oauth2Login().defaultSuccessUrl("/uploadForm").permitAll();
         ;
     }// @formatter:on
 
