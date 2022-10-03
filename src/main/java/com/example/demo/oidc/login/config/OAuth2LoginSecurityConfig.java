@@ -35,7 +35,7 @@ public class OAuth2LoginSecurityConfig extends WebSecurityConfigurerAdapter {// 
                 .oauth2Login(oauthLogin -> oauthLogin.userInfoEndpoint().oidcUserService(googleUserService)).logout(logout ->
                         logout
                                 .logoutSuccessHandler(oidcLogoutSuccessHandler()).logoutSuccessUrl("/login").permitAll()
-                ).oauth2Login().defaultSuccessUrl("/uploadForm").permitAll();
+                ).oauth2Login().defaultSuccessUrl("/upload").permitAll();
         ;
     }// @formatter:on
 

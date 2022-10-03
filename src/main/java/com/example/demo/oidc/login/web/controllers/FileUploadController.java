@@ -27,17 +27,17 @@ public class FileUploadController {
         this.storageService = storageService;
     }
 
-//    @RequestMapping(method = RequestMethod.GET, value ="/")
-//    public String login() throws IOException {
-//        return "login.html";
-//    }
+    @RequestMapping(method = RequestMethod.GET, value ="/")
+    public String login() throws IOException {
+        return "index.html";
+    }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/uploadForm")
+    @RequestMapping(method = RequestMethod.GET, value = "/upload")
     public String listUploadedFiles() throws IOException {
         return "uploadForm.html";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/uploadForm/files/{filename:.+}")
+    @RequestMapping(method = RequestMethod.GET, value = "/upload/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
@@ -45,12 +45,12 @@ public class FileUploadController {
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/uploadForm", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @RequestMapping(method = RequestMethod.POST, value = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        return "redirect:/uploadForm";
+        return "redirect:/upload";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
